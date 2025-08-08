@@ -247,19 +247,6 @@ display: none;  /* Oculto por defecto */
     border-radius: 60px;
 }
 
-/* Grid de fotos */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.photo-grid img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
 
 .photo-grid {
   display: flex;
