@@ -187,5 +187,89 @@ footer nav ul {
 }
 
 .modal-photogallery {
-  display: none;
+display: none;  /* Oculto por defecto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+  z-index: 999;
+}
+
+/* Contenedor del modal centrado */
+.modal-content {
+  position: absolute;
+  width: 630px;
+  height: 688px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  /* Centramos con transform */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Botón de cerrar */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Título */
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#addPhoto {
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+	font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    margin: auto;
+	margin-top: 50px; /* DEBATIBLE = GAP ? */
+    width: 193px;
+	height: 35px;
+    border-radius: 60px;
+}
+
+/* Grid de fotos */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap; /* Permite que salten de línea */
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.photo-grid img {
+  width: calc(20% - 10px); /* 5 fotos por fila con gap */
+  border-radius: 5px;
+  object-fit: cover;
 }
