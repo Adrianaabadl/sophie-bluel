@@ -186,35 +186,33 @@ footer nav ul {
 	margin: 2em
 }
 
-.modal-photogallery {
-display: none;  /* Oculto por defecto */
+#modal-photogallery, #modal-addphoto {
+  display: none; 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
-  z-index: 999;
+  background-color: #00000080;
+  z-index: 2;
 }
 
-/* Contenedor del modal centrado */
+
 .modal-content {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 630px;
   height: 688px;
   background-color: #fff;
   border-radius: 10px;
-  padding: 20px;
+  padding: 60px 100px; 
   box-sizing: border-box;
-  overflow-y: auto;
-
-  /* Centramos con transform */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Botón de cerrar */
 .close {
   position: absolute;
   top: 15px;
@@ -224,7 +222,6 @@ display: none;  /* Oculto por defecto */
   cursor: pointer;
 }
 
-/* Título */
 .modal-content h2 {
   margin-top: 0;
   font-size: 24px;
@@ -241,22 +238,30 @@ display: none;  /* Oculto por defecto */
     color: white;
     background-color: #1D6154;
     margin: auto;
-	margin-top: 50px; /* DEBATIBLE = GAP ? */
+	margin-top: 50px; /* Debatilbe = GAP ? */
     width: 193px;
 	height: 35px;
     border-radius: 60px;
+	border: none;
 }
 
 
 .photo-grid {
   display: flex;
-  flex-wrap: wrap; /* Permite que salten de línea */
+  flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
+  margin: 60px 0;
+}
+
+#model-buttom-content {
+	display: flex;
 }
 
 .photo-grid img {
-  width: calc(20% - 10px); /* 5 fotos por fila con gap */
+  width: auto;
+  height: auto;
+  max-width: 76.86px;
+  max-height: 102.57px;
   border-radius: 5px;
   object-fit: cover;
 }
