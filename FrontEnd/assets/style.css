@@ -30,7 +30,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #fffef8;
 }
+
 ol, ul {
 	list-style: none;
 }
@@ -53,6 +55,12 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+#body-login {
+	max-height: 700px;
+  	border: 1px solid red; 
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -78,7 +86,7 @@ h1 > span {
 ;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
@@ -121,10 +129,17 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
+
+#login-section {
+	display: flex;
+	justify-content: center;
+}
+
+#portfolio h2, #login h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -148,11 +163,39 @@ margin: auto;
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
+}
+
+#login form {
+	gap: 20px;
+}
+
+input[type="email"], input[type="password"] {
+	min-width: 379px;
+	min-height: 51px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+input[type="submit"] {
+    width: 120px;
+    height: 40px;
+    background-color: #2f4f3f; /* verde oscuro similar al de la imagen */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
 }
 
 #contact input {
@@ -245,6 +288,11 @@ footer nav ul {
 	border: none;
 }
 
+#uploadPhoto {
+	width: 420px;
+	height: 169px;
+}
+
 
 .photo-grid {
   display: flex;
@@ -264,4 +312,9 @@ footer nav ul {
   max-height: 102.57px;
   border-radius: 5px;
   object-fit: cover;
+}
+
+#modal-addphoto .photo-grid {
+	flex-direction: column;
+	align-items: center;
 }

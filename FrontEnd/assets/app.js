@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // Close modal
+    // Close modal #ASK 
     closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         modalPhotoGallery.style.display = 'none';
