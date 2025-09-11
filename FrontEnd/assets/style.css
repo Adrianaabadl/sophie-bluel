@@ -54,12 +54,13 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	padding-bottom: 80px; 
 }
 
-#body-login {
-	max-height: 700px;
+/* #body-login {
+	 max-height: 700px; 
   	border: 1px solid red; 
-}
+} */
 
 header {
 	display: flex;
@@ -223,7 +224,15 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-footer nav ul {
+.footer { 
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color: white;
+	width: 100%;
+}
+
+.footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
