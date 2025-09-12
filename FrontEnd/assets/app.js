@@ -1,40 +1,87 @@
+// ===========================
+// Modals
+// ===========================
+function openModal(modal) {
+    if (!modal) return;
+    modal.style.display = 'block';
+}
+
+function closeModal(modal) {
+    if (!modal) return;
+    modal.style.display = 'none';
+}
+
+// ===========================
+// Login
+// ===========================
+async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:5678/api/users/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!response.ok) throw new Error('User Not Found');
+
+        const result = await response.json();
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error(error);
+        alert('User Not Found');
+        window.location.reload();
+    }
+}
+
+// ===========================
+// DOMContentLoaded
+// ===========================
 document.addEventListener("DOMContentLoaded", () => {
+    // Modales
     const sendButton = document.getElementById('send-button');
+    const addPhotoButton = document.getElementById("addPhoto");
     const modalPhotoGallery = document.getElementById('modal-photogallery');
-    const closeBtns = document.querySelectorAll('.close');
-    const addPhotoButtom = document.getElementById("addPhoto");
     const modalAddPhoto = document.getElementById('modal-addphoto');
+    const closeBtns = document.querySelectorAll('.close');
 
-    // Open modal
-    sendButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        modalPhotoGallery.style.display = 'block'
+    // Open Modal Photo Gallery
+    if (sendButton) {
+        sendButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(modalPhotoGallery);
+        });
+    }
 
-    });
+    // Open Modal Add Photo
+    if (addPhotoButton) {
+        addPhotoButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal(modalPhotoGallery);
+            openModal(modalAddPhoto);
+        });
+    }
 
-    // Close modal #ASK 
+    // Close Modal
     closeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        modalPhotoGallery.style.display = 'none';
-        modalAddPhoto.style.display = 'none';
+        btn.addEventListener('click', () => { 
+            closeModal(modalPhotoGallery); 
+            closeModal(modalAddPhoto); 
         });
     });
 
-    // Force close if user click outside
+    // Close Modal
     window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modalPhotoGallery.style.display = 'none';
-            modalAddPhoto.style.display = 'none';
-        }
+        if (event.target === modalPhotoGallery) closeModal(modalPhotoGallery);
+        if (event.target === modalAddPhoto) closeModal(modalAddPhoto);
     });
 
-    // Open second modal 
-     addPhotoButtom.addEventListener('click', function(event) {
-        event.preventDefault();
-        modalPhotoGallery.style.display = 'none'; // Close the other modal
-        modalAddPhoto.style.display = 'block' // Open the new modal
-
-    });
-
-
+    // Login
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
 });
