@@ -15,12 +15,13 @@ function closeModal(modal) {
 // Login
 // ===========================
 async function handleLogin(event) {
+    
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:5678/api/users/login', {
+        const response = await fetch('http://localhost:5678/api/users/login', { // Todo: Change the URL
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -28,7 +29,11 @@ async function handleLogin(event) {
 
         if (!response.ok) throw new Error('User Not Found');
 
-        const result = await response.json();
+        const result = await response.json(); // Save the token => window.token or local storage
+        console.log(result)
+        console.log(result.json)
+        localStorage.setItem("token", result.token);
+        const token = localStorage.getItem("token");
         window.location.href = 'index.html';
     } catch (error) {
         console.error(error);
