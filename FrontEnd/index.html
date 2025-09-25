@@ -93,13 +93,13 @@
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Do you have a project in mind? Let’s talk about it!</p>
-			<form action="#" method="post">
+			<form method="post">
 				<label for="name">Name</label>
-				<input type="text" name="name" id="name">
+				<input type="text" name="name" id="name" required autocomplete="name">
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email">
+				<input type="email" name="email" id="email" required autocomplete="email">
 				<label for="message">Message</label>
-				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				  <textarea name="message" id="message" cols="30" rows="10" autocomplete="off"></textarea>
 				<input type="submit" value="Send" id="send-button">
 			</form>
 		</section>
@@ -130,14 +130,14 @@
 		<dialog id="modal-addphoto">
 			<div class="modal-content">
 				<span class="close">&times;</span>
-				<h2>Add Photo</h2>
-				<div class="photo-grid" id="gallery">
+				<h2 class="add-photo">Add Photo</h2>
+				<div class="photo-grid-addphoto" id="gallery">
 					<img id="uploadPhoto" src="" alt="">
-					<form action="">
+					<form class="add-photo" action="">
 						<h3>Title</h3>
 						<input type="text" id="title" name="title">
 						<h3>Category</h3>
-						<select name="category">
+						<select name="category" class="form-control"> 
 
 							<option>New York </option>
 							<option>Bucharest</option>

@@ -30,10 +30,10 @@ async function handleLogin(event) {
         if (!response.ok) throw new Error('User Not Found');
 
         const result = await response.json(); // Save the token => window.token or local storage
-        console.log(result)
-        console.log(result.json)
+        // console.log(result)
+        // console.log(result.json)
         localStorage.setItem("token", result.token);
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // I can create another variable by going to the local storage localStorage.getItem('token')
         window.location.href = 'index.html';
     } catch (error) {
         console.error(error);
@@ -52,14 +52,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalPhotoGallery = document.getElementById('modal-photogallery');
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
 
     // Open Modal Photo Gallery
-    if (sendButton) {
-        sendButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(modalPhotoGallery);
-        });
-    }
+    if (sendButton && nameInput && emailInput) {
+    sendButton.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const nameLength = nameInput.value.trim().length;
+        const emailLength = emailInput.value.trim().length;
+
+        if (nameLength === 0 || emailLength === 0) {
+            alert('Name and Email are required');
+            return; // detiene la ejecución, evita abrir el modal
+        }
+
+        // Si pasa la validación, abre el modal
+        openModal(modalPhotoGallery);
+    });
+}
 
     // Open Modal Add Photo
     if (addPhotoButton) {
