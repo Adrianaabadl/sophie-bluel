@@ -46,32 +46,19 @@ async function handleLogin(event) {
 // DOMContentLoaded
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
-    // Modales
-    const sendButton = document.getElementById('send-button');
+    // const sendButton = document.getElementById('send-button');
+    const contactForm = document.forms['contact-form'];
     const addPhotoButton = document.getElementById("addPhoto");
     const modalPhotoGallery = document.getElementById('modal-photogallery');
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
 
     // Open Modal Photo Gallery
-//     if (sendButton && nameInput && emailInput) {
-//     sendButton.addEventListener('click', (e) => {
-//         // e.preventDefault();
-
-//         const nameLength = nameInput.value.trim().length;
-//         const emailLength = emailInput.value.trim().length;
-
-//         if (nameLength === 0 || emailLength === 0) {
-//             alert('Name and Email are required');
-//             return; // Use a regex for the emailInput or type of inputs
-//         }
-
-//         // Si pasa la validación, abre el modal
-//         openModal(modalPhotoGallery);
-//     });
-// }
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // el formulario hace redirects 
+        openModal(modalPhotoGallery);
+    });
+    
 
     // Open Modal Add Photo
     if (addPhotoButton) {
