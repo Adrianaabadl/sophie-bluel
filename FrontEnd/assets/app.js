@@ -56,22 +56,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.getElementById('email');
 
     // Open Modal Photo Gallery
-    if (sendButton && nameInput && emailInput) {
-    sendButton.addEventListener('click', (e) => {
-        e.preventDefault();
+//     if (sendButton && nameInput && emailInput) {
+//     sendButton.addEventListener('click', (e) => {
+//         // e.preventDefault();
 
-        const nameLength = nameInput.value.trim().length;
-        const emailLength = emailInput.value.trim().length;
+//         const nameLength = nameInput.value.trim().length;
+//         const emailLength = emailInput.value.trim().length;
 
-        if (nameLength === 0 || emailLength === 0) {
-            alert('Name and Email are required');
-            return; // detiene la ejecución, evita abrir el modal
-        }
+//         if (nameLength === 0 || emailLength === 0) {
+//             alert('Name and Email are required');
+//             return; // Use a regex for the emailInput or type of inputs
+//         }
 
-        // Si pasa la validación, abre el modal
-        openModal(modalPhotoGallery);
-    });
-}
+//         // Si pasa la validación, abre el modal
+//         openModal(modalPhotoGallery);
+//     });
+// }
 
     // Open Modal Add Photo
     if (addPhotoButton) {
@@ -101,4 +101,29 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
     }
+
+    // Preview de la imagen 
+    const uploadInput = document.getElementById("uploadPhoto");
+    const preview = document.getElementById("uploadPhotoPreview");
+    const uploadBox = document.getElementById("uploadBox");
+    if (uploadInput) {
+        uploadInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader(); // read from disk or storage from clients side
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                    if (uploadBox)  {
+                        uploadBox.style.display = "none";
+                    }
+                        
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 });
+
