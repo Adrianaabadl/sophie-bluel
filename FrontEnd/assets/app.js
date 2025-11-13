@@ -15,6 +15,39 @@ function closeModal(modal) {
 // DOMContentLoaded
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
+
+    // ===========================
+    // LOAD GALLERY FROM API
+    // ===========================
+    async function loadGallery() {
+        const gallery = document.querySelector('.gallery');
+
+        try {
+            const response = await fetch("http://localhost:5678/api/works");
+            const works = await response.json();
+
+            gallery.innerHTML = "";
+
+            works.forEach(work => {
+                const figure = document.createElement("figure");
+
+                figure.innerHTML = `
+                    <img src="${work.imageUrl}" alt="${work.title}">
+                    <figcaption>${work.title}</figcaption>
+                `;
+
+                gallery.appendChild(figure);
+            });
+
+        } catch (error) {
+            console.error("Error trying loading the content:", error);
+            gallery.innerHTML = "<p>Error while loading the gallery content.</p>";
+        }
+    };
+
+    loadGallery();
+
+
     // const sendButton = document.getElementById('send-button');
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
     const addPhotoForm = document.forms['addphoto-form'];
@@ -53,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('title', imageTitle);
-        // formData.append('category', 1); // FIXME
+        formData.append('category', 1); // FIXME
         
         // HTML values
         const gallery = document.querySelector('.gallery');
