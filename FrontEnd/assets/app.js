@@ -12,53 +12,24 @@ function closeModal(modal) {
 }
 
 // ===========================
-// Login
-// ===========================
-async function handleLogin(event) {
-    
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    try {
-        const response = await fetch('http://localhost:5678/api/users/login', { // Todo: Change the URL
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (!response.ok) throw new Error('User Not Found');
-
-        const result = await response.json(); // Save the token => window.token or local storage
-        // console.log(result)
-        // console.log(result.json)
-        localStorage.setItem("token", result.token);
-        const token = localStorage.getItem("token"); // I can create another variable by going to the local storage localStorage.getItem('token')
-        window.location.href = 'index.html';
-    } catch (error) {
-        console.error(error);
-        alert('User Not Found');
-        window.location.reload();
-    }
-}
-
-// ===========================
 // DOMContentLoaded
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
     // const sendButton = document.getElementById('send-button');
-    const contactForm = document.forms['contact-form'];
+    const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
+    const addPhotoForm = document.forms['addphoto-form'];
     const addPhotoButton = document.getElementById("addPhoto");
     const modalPhotoGallery = document.getElementById('modal-photogallery');
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
 
     // Open Modal Photo Gallery
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // el formulario hace redirects 
-        openModal(modalPhotoGallery);
-    });
-    
+    if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // el formulario hace redirects 
+            openModal(modalPhotoGallery);
+        });
+    };
 
     // Open Modal Add Photo
     if (addPhotoButton) {
@@ -66,8 +37,56 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             closeModal(modalPhotoGallery);
             openModal(modalAddPhoto);
+
         });
-    }
+    };
+
+    addPhotoForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const token = localStorage.getItem("token");
+        const imageTitle = document.getElementById("title").value;
+        const category = document.getElementById("category").value;
+        const uploadInput = document.getElementById('uploadPhoto');
+        const imageFile = uploadInput.files ? uploadInput.files[0] : null;
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('title', imageTitle);
+        // formData.append('category', 1); // FIXME
+        
+        // HTML values
+        const gallery = document.querySelector('.gallery');
+        const figure = document.createElement('figure');
+        const img = document.createElement('img');
+        const caption = document.createElement('figcaption');
+
+        try {
+            const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+            });
+            const data = await response.json();
+            // localStorage.setItem("apiResponse", JSON.stringify(data)); //TODO
+
+            // == Update HTML == // 
+            console.log(imageUrl);
+            img.src = data.imageUrl;
+            img.alt = data.title;
+            caption.textContent = data.title;
+
+            figure.appendChild(img);
+            figure.appendChild(caption);
+            gallery.appendChild(figure);
+            
+        } catch (error) {
+            console.error('Error in file submission:', error);
+        }
+    });
+
 
     // Close Modal
     closeBtns.forEach(btn => {
@@ -83,11 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.target === modalAddPhoto) closeModal(modalAddPhoto);
     });
 
-    // Login
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
 
     // Preview de la imagen 
     const uploadInput = document.getElementById("uploadPhoto");
@@ -102,12 +116,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 reader.onload = function (e) {
                     preview.src = e.target.result;
                     preview.style.display = "block";
+                    preview.style.objectFit = "cover";
+                    preview.style.width = "420px";
+                    preview.style.height = "160px";
                     if (uploadBox)  {
                         uploadBox.style.display = "none";
                     }
-                        
                 };
-
                 reader.readAsDataURL(file);
             }
         });

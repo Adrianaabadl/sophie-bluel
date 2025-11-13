@@ -124,7 +124,7 @@
 				</div>
 				<div class="model-buttom-content">
 					<hr />
-					<button id="addPhoto">Add a photo</button>
+					<button id="addPhoto" class="btn-primary">Add a photo</button>
 				</div>
 		</dialog>
 		<dialog id="modal-addphoto">
@@ -133,7 +133,7 @@
 				<h2 class="add-photo">Add Photo</h2>
 
 				<div class="photo-grid-addphoto" id="gallery">
-					<form class="add-photo" id="add-photo-form" action="/upload" method="post"
+					<form name="addphoto-form" class="add-photo" action="/upload" method="post"
 						enctype="multipart/form-data">
 						<label for="uploadPhoto" id="uploadBox" class="photo-upload-box">
 							<img src="assets/icons/image.png" alt="Icon representing the upload for an image" />
@@ -147,21 +147,24 @@
 						<input type="text" id="title" name="title" required>
 
 						<h3>Category</h3>
-						<select name="category" class="form-control" required>
+						<select id="category" name="category" class="form-control" required>
 							<option>New York</option>
 							<option>Bucharest</option>
 							<option>Madrid</option>
 						</select>
+						<div class="model-buttom-content">
+							<hr />
+							<button type="submit" id="confirmPhoto" class="btn-primary">Confirm</button>
+						</div>
 					</form>
 				</div>
-
+<!-- 
 				<div class="model-buttom-content">
 					<hr />
 					<button id="addPhoto">Confirm</button>
-				</div>
+				</div> -->
 			</div>
 		</dialog>
-
 	</main>
 	<footer>
 		<nav>
