@@ -79,14 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const token = localStorage.getItem("token");
         const imageTitle = document.getElementById("title").value;
-        const category = document.getElementById("category").value;
+        const categoryId = document.getElementById("category").value;
         const uploadInput = document.getElementById('uploadPhoto');
         const imageFile = uploadInput.files ? uploadInput.files[0] : null;
 
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('title', imageTitle);
-        formData.append('category', 1); // FIXME
+        formData.append('category', categoryId);
         
         // HTML values
         const gallery = document.querySelector('.gallery');
