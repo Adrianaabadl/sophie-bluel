@@ -93,6 +93,32 @@ h2 {
 	font-size: 30px;
 	color: #1D6154
 }
+
+#categories {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+}
+
+#categories li {
+	font-family: 'Syne';
+	color: #1D6154;
+	border: 2px solid #1D6154;
+	padding: 5px 30px; 
+	border-radius: 15px;
+	margin-bottom: 25px;
+}
+
+#categories li:first-child {
+  color: white;
+  background-color: #1D6154;
+}
+
+#categories li:not(:first-child):hover {
+  color: white;
+  background-color: #1D6154;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -175,7 +201,7 @@ margin: auto;
 	gap: 20px;
 }
 
-input[type="email"], input[type="password"] {
+input[type="email"], input[type="password"], input[type="text"], .form-control {
 	min-width: 379px;
 	min-height: 51px;
     padding: 15px;
@@ -184,6 +210,7 @@ input[type="email"], input[type="password"] {
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	background-color: #ffffff;
     }
 
 input[type="submit"] {
@@ -224,15 +251,14 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-.footer { 
+footer { 
 	position: fixed;
 	left: 0;
 	bottom: 0;
 	background-color: white;
 	width: 100%;
 }
-
-.footer nav ul {
+footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
@@ -254,8 +280,8 @@ input[type="submit"]{
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 630px;
-  height: 688px;
+  max-width: 630px;
+  max-height: 750px;
   background-color: #fff;
   border-radius: 10px;
   padding: 60px 100px; 
@@ -281,7 +307,11 @@ input[type="submit"]{
   text-align: center;
 }
 
-#addPhoto {
+.modal-content .add-photo {
+  margin-bottom: 30px;
+}
+
+.btn-primary {
 	display: flex;
 	justify-content: center;
 	align-items: center; 
@@ -302,6 +332,20 @@ input[type="submit"]{
 	height: 169px;
 }
 
+#uploadPhoto {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  background-size: 40px;
+  border: 2px #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  /* padding: 40px; */
+}
+#uploadPhoto:empty {
+  background-color: #f6f6f6;
+}
 
 .photo-grid {
   display: flex;
@@ -326,4 +370,55 @@ input[type="submit"]{
 #modal-addphoto .photo-grid {
 	flex-direction: column;
 	align-items: center;
+}
+
+
+form.add-photo { 
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+
+/* Ocultamos el input real */
+#uploadPhoto {
+  display: none;
+}
+
+
+.photo-upload-box {
+  max-width: 420px;
+  width: 100%;
+  height: 160px;
+  border: 2px dashed #ddd;
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.photo-upload-box:hover {
+  border-color: #999;
+  background-color: #f0f0f0;
+}
+
+.photo-upload-box img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.photo-upload-box span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.photo-upload-box small {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
 }
