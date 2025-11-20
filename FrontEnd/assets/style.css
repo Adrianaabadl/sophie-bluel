@@ -93,6 +93,32 @@ h2 {
 	font-size: 30px;
 	color: #1D6154
 }
+
+#categories {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+}
+
+#categories li {
+	font-family: 'Syne';
+	color: #1D6154;
+	border: 2px solid #1D6154;
+	padding: 5px 30px; 
+	border-radius: 15px;
+	margin-bottom: 25px;
+}
+
+#categories li:first-child {
+  color: white;
+  background-color: #1D6154;
+}
+
+#categories li:not(:first-child):hover {
+  color: white;
+  background-color: #1D6154;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;

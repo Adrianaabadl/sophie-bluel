@@ -16,15 +16,15 @@ function closeModal(modal) {
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
 
+    let works = [];
+    const gallery = document.querySelector('.gallery');
     // ===========================
     // LOAD GALLERY FROM API
     // ===========================
     async function loadGallery() {
-        const gallery = document.querySelector('.gallery');
-
         try {
             const response = await fetch("http://localhost:5678/api/works");
-            const works = await response.json();
+            works = await response.json();
 
             gallery.innerHTML = "";
 
@@ -47,6 +47,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadGallery();
 
+    // ===========================
+    // LOAD GALLERY DINAMICALLY
+    // ===========================
+    const categoriesList = document.getElementById("categories");
+    categoriesList.addEventListener("click", (e) => {
+        let filteredWork;
+        if (e.target.tagName === "LI") {
+            const categoryValue = e.target.dataset.value || "all";
+            console.log(categoryValue);
+            
+            if (categoryValue === "all") {
+                filteredWork = works;
+            } else {
+                filteredWork = works.filter(work => work.categoryId === Number(categoryValue));
+            }
+            gallery.innerHTML = "";
+            filteredWork.forEach(filteredWork => {
+                const figure = document.createElement("figure");
+                figure.innerHTML = `
+                    <img src="${filteredWork.imageUrl}" alt="${filteredWork.title}">
+                    <figcaption>${filteredWork.title}</figcaption>
+                `;
+                gallery.appendChild(figure);
+            });
+        }
+    });
 
     // const sendButton = document.getElementById('send-button');
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
