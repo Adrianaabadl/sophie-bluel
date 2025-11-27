@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // const sendButton = document.getElementById('send-button');
+    const editProjectIcon = document.getElementsByClassName('edit-project-icon')[0];
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
     const addPhotoForm = document.forms['addphoto-form'];
     const addPhotoButton = document.getElementById("addPhoto");
@@ -83,13 +84,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtns = document.querySelectorAll('.close');
 
     // Open Modal Photo Gallery
+    editProjectIcon.addEventListener('click', (e) => {
+        openModal(modalPhotoGallery);
+    });
+
+    // Contact Form
     if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // el formulario hace redirects 
-            openModal(modalPhotoGallery);
+            e.preventDefault();
+            console.log('Thank you!');
         });
     };
-
     // Open Modal Add Photo
     if (addPhotoButton) {
         addPhotoButton.addEventListener('click', (e) => {
@@ -146,6 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Delete Work
+     const deleteIcons = document.querySelectorAll('.delete-icon');
 
     // Close Modal
     closeBtns.forEach(btn => {
