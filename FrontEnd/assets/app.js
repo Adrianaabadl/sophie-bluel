@@ -47,9 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadGallery();
 
-    // ===========================
+    // =============================
     // LOAD GALLERY DINAMICALLY
-    // ===========================
+    // =============================
     const categoriesList = document.getElementById("categories");
     categoriesList.addEventListener("click", (e) => {
         let filteredWork;
@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // const sendButton = document.getElementById('send-button');
     const editProjectIcon = document.getElementsByClassName('edit-project-icon')[0];
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
     const addPhotoForm = document.forms['addphoto-form'];
@@ -87,6 +86,66 @@ document.addEventListener("DOMContentLoaded", () => {
     editProjectIcon.addEventListener('click', (e) => {
         openModal(modalPhotoGallery);
     });
+
+    // ==============================
+    // LOAD GALLERY IN MODAL FROM API
+    // ==============================
+    const photoGrid = document.querySelector('.photo-grid');
+
+    async function loadPhotoGrid() {
+        try {
+            const response = await fetch("http://localhost:5678/api/works");
+            const works = await response.json();
+
+            photoGrid.innerHTML = "";
+
+            works.forEach(work => {
+                const gridwrapper = document.createElement("div");
+                gridwrapper.classList.add("grid-wrapper");
+                gridwrapper.innerHTML = `
+                    <img src="${work.imageUrl}" alt="${work.title}">
+                    <i class="fa-regular fa-trash-can delete-icon" data-id="${work.id}"></i>
+                `;
+                photoGrid.appendChild(gridwrapper);
+            });
+
+            // Delete picture event
+            const deleteIcons = document.querySelectorAll('.delete-icon');
+            deleteIcons.forEach(icon => {
+                const token = localStorage.getItem("token");
+                icon.addEventListener('click', async (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    
+                    try {
+                        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                'accept': '*/*'
+                            }
+                        });
+
+                        if (response.ok) {
+                            e.currentTarget.parentElement.remove();
+                            console.log(`Work ID ${id} deleted`);
+                        } else {
+                            console.error("Error while deleting:", response.statusText);
+                        }
+
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+                });
+            });
+
+        } catch (error) {
+            console.error("Error loading gallery:", error);
+            photoGrid.innerHTML = "<p>Error while loading the gallery content.</p>";
+        }
+    }
+
+    loadPhotoGrid();
+
 
     // Contact Form
     if (contactForm) {
@@ -107,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addPhotoForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-
         const token = localStorage.getItem("token");
         const imageTitle = document.getElementById("title").value;
         const categoryId = document.getElementById("category").value;
@@ -151,8 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Delete Work
-     const deleteIcons = document.querySelectorAll('.delete-icon');
 
     // Close Modal
     closeBtns.forEach(btn => {
