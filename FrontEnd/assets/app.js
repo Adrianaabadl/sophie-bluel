@@ -16,6 +16,27 @@ function closeModal(modal) {
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
 
+    // Login-Logout Section 
+    const btn = document.getElementById("login-logout-hyperlink");
+    const token = localStorage.getItem("token");
+    // Delete edit section
+    const editSection = document.getElementById("edit-section");
+
+    if (!token) {
+        editSection.style.display = "none";
+    }
+
+    if (token) {
+        btn.textContent = "Logout";
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "login.html";
+        });
+    } else {
+        btn.innerHTML = `<a href="login.html">Login</a>`;
+    }
+
     let works = [];
     const gallery = document.querySelector('.gallery');
     // ===========================
@@ -82,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
 
+        
     // Open Modal Photo Gallery
     editProjectIcon.addEventListener('click', (e) => {
         openModal(modalPhotoGallery);
@@ -109,11 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 photoGrid.appendChild(gridwrapper);
             });
 
-            // Delete picture event
+            // Delete picture event 
             const deleteIcons = document.querySelectorAll('.delete-icon');
             deleteIcons.forEach(icon => {
+                
                 const token = localStorage.getItem("token");
                 icon.addEventListener('click', async (e) => {
+                    e.preventDefault();
                     const id = e.currentTarget.dataset.id;
                     
                     try {
@@ -126,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
 
                         if (response.ok) {
-                            e.currentTarget.parentElement.remove();
+                            // e.currentTarget.parentElement.remove();
                             console.log(`Work ID ${id} deleted`);
                         } else {
                             console.error("Error while deleting:", response.statusText);
@@ -195,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // localStorage.setItem("apiResponse", JSON.stringify(data)); //TODO
 
             // == Update HTML == // 
-            console.log(imageUrl);
+            // console.log(imageUrl);
             img.src = data.imageUrl;
             img.alt = data.title;
             caption.textContent = data.title;
