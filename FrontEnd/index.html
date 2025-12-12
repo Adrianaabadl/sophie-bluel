@@ -11,6 +11,8 @@
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		integrity="sha512-pn..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -20,7 +22,7 @@
 			<ul>
 				<li>projects</li>
 				<li>contact</li>
-				<li>login</li>
+				<li id="login-logout-hyperlink"></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -42,7 +44,12 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>My Projects</h2>
+			<div id="project-edit-section">
+				<h2>My Projects</h2>
+				<p id="edit-section">
+					<i class="fa-regular fa-pen-to-square edit-project-icon"></i> Edit
+				</p>
+			</div>
 			<ul id="categories">
 				<li>All</li>
 				<li data-value=1>Objects</li>
@@ -54,7 +61,7 @@
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Do you have a project in mind? Let’s talk about it!</p>
-			<form  name="contact-form" method="post">
+			<form name="contact-form" method="post">
 				<label for="name">Name</label>
 				<input type="text" name="name" id="name" required autocomplete="name">
 				<label for="email">Email</label>
@@ -70,18 +77,6 @@
 				<span class="close">&times;</span>
 				<h2>Photo Gallery</h2>
 				<div class="photo-grid" id="gallery">
-					<img src="assets/images/abajour-tahina.png" alt="abajour-tahina">
-					<img src="assets/images/appartement-paris-v.png" alt="appartement-paris-v">
-					<img src="assets/images/appartement-paris-x.png" alt="appartement-paris-x">
-					<img src="assets/images/appartement-paris-xviii.png" alt="appartement-paris-xviii">
-					<img src="assets/images/bar-lullaby-paris.png" alt="bar-lullaby-paris">
-					<img src="assets/images/hotel-first-arte-new-delhi.png" alt="hotel-first-arte-new-delhi">
-					<img src="assets/images/la-balisiere.png" alt="la-balisiere">
-					<img src="assets/images/le-coteau-cassis.png" alt="le-coteau-cassis">
-					<img src="assets/images/restaurant-sushisen-londres.png" alt="restaurant-sushisen-londres">
-					<img src="assets/images/sophie-bluel.png" alt="sophie-bluel">
-					<img src="assets/images/structures-thermopolis.png" alt="structures-thermopolis">
-					<img src="assets/images/villa-ferneze.png" alt="villa-ferneze">
 				</div>
 				<div class="model-buttom-content">
 					<hr />
@@ -119,7 +114,7 @@
 						</div>
 					</form>
 				</div>
-<!-- 
+				<!-- 
 				<div class="model-buttom-content">
 					<hr />
 					<button id="addPhoto">Confirm</button>

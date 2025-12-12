@@ -16,6 +16,27 @@ function closeModal(modal) {
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
 
+    // Login-Logout Section 
+    const btn = document.getElementById("login-logout-hyperlink");
+    const token = localStorage.getItem("token");
+    // Delete edit section
+    const editSection = document.getElementById("edit-section");
+
+    if (!token) {
+        editSection.style.display = "none";
+    }
+
+    if (token) {
+        btn.textContent = "Logout";
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "login.html";
+        });
+    } else {
+        btn.innerHTML = `<a href="login.html">Login</a>`;
+    }
+
     let works = [];
     const gallery = document.querySelector('.gallery');
     // ===========================
@@ -47,9 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadGallery();
 
-    // ===========================
+    // =============================
     // LOAD GALLERY DINAMICALLY
-    // ===========================
+    // =============================
     const categoriesList = document.getElementById("categories");
     categoriesList.addEventListener("click", (e) => {
         let filteredWork;
@@ -74,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // const sendButton = document.getElementById('send-button');
+    const editProjectIcon = document.getElementsByClassName('edit-project-icon')[0];
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
     const addPhotoForm = document.forms['addphoto-form'];
     const addPhotoButton = document.getElementById("addPhoto");
@@ -82,14 +103,81 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
 
+        
     // Open Modal Photo Gallery
+    editProjectIcon.addEventListener('click', (e) => {
+        openModal(modalPhotoGallery);
+    });
+
+    // ==============================
+    // LOAD GALLERY IN MODAL FROM API
+    // ==============================
+    const photoGrid = document.querySelector('.photo-grid');
+
+    async function loadPhotoGrid() {
+        try {
+            const response = await fetch("http://localhost:5678/api/works");
+            const works = await response.json();
+
+            photoGrid.innerHTML = "";
+
+            works.forEach(work => {
+                const gridwrapper = document.createElement("div");
+                gridwrapper.classList.add("grid-wrapper");
+                gridwrapper.innerHTML = `
+                    <img src="${work.imageUrl}" alt="${work.title}">
+                    <i class="fa-regular fa-trash-can delete-icon" data-id="${work.id}"></i>
+                `;
+                photoGrid.appendChild(gridwrapper);
+            });
+
+            // Delete picture event 
+            const deleteIcons = document.querySelectorAll('.delete-icon');
+            deleteIcons.forEach(icon => {
+                
+                const token = localStorage.getItem("token");
+                icon.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const id = e.currentTarget.dataset.id;
+                    
+                    try {
+                        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                'accept': '*/*'
+                            }
+                        });
+
+                        if (response.ok) {
+                            // e.currentTarget.parentElement.remove();
+                            console.log(`Work ID ${id} deleted`);
+                        } else {
+                            console.error("Error while deleting:", response.statusText);
+                        }
+
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+                });
+            });
+
+        } catch (error) {
+            console.error("Error loading gallery:", error);
+            photoGrid.innerHTML = "<p>Error while loading the gallery content.</p>";
+        }
+    }
+
+    loadPhotoGrid();
+
+
+    // Contact Form
     if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // el formulario hace redirects 
-            openModal(modalPhotoGallery);
+            e.preventDefault();
+            windows.alert("Thank you for your message. We'll be in touch soon.")
         });
     };
-
     // Open Modal Add Photo
     if (addPhotoButton) {
         addPhotoButton.addEventListener('click', (e) => {
@@ -102,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addPhotoForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-
         const token = localStorage.getItem("token");
         const imageTitle = document.getElementById("title").value;
         const categoryId = document.getElementById("category").value;
@@ -129,10 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
             body: formData,
             });
             const data = await response.json();
-            // localStorage.setItem("apiResponse", JSON.stringify(data)); //TODO
 
             // == Update HTML == // 
-            console.log(imageUrl);
             img.src = data.imageUrl;
             img.alt = data.title;
             caption.textContent = data.title;
