@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log('Thank you!');
+            windows.alert("Thank you for your message. We'll be in touch soon.")
         });
     };
     // Open Modal Add Photo
@@ -216,10 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
             body: formData,
             });
             const data = await response.json();
-            // localStorage.setItem("apiResponse", JSON.stringify(data)); //TODO
 
             // == Update HTML == // 
-            // console.log(imageUrl);
             img.src = data.imageUrl;
             img.alt = data.title;
             caption.textContent = data.title;
