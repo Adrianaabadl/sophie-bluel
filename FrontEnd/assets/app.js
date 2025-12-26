@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===========================
     async function loadGallery() {
         try {
-            const response = await fetch("http://localhost:5678/api/works");
+            const response = await fetch("https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works");
             works = await response.json();
 
             gallery.innerHTML = "";
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadPhotoGrid() {
         try {
-            const response = await fetch("http://localhost:5678/api/works");
+            const response = await fetch("https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works");
             const works = await response.json();
 
             photoGrid.innerHTML = "";
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const id = e.currentTarget.dataset.id;
                     
                     try {
-                        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                        const response = await fetch(`https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works/${id}`, {
                             method: 'DELETE',
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const caption = document.createElement('figcaption');
 
         try {
-            const response = await fetch('http://localhost:5678/api/works', {
+            const response = await fetch('https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
