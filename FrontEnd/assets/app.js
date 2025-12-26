@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         if (response.ok) {
                             // e.currentTarget.parentElement.remove();
+                            modalPhotoGallery.close();
                             console.log(`Work ID ${id} deleted`);
                         } else {
                             console.error("Error while deleting:", response.statusText);
