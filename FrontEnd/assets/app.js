@@ -1,17 +1,4 @@
 // ===========================
-// Modals
-// ===========================
-function openModal(modal) {
-    if (!modal) return;
-    modal.style.display = 'block';
-}
-
-function closeModal(modal) {
-    if (!modal) return;
-    modal.style.display = 'none';
-}
-
-// ===========================
 // DOMContentLoaded
 // ===========================
 document.addEventListener("DOMContentLoaded", () => {
@@ -99,14 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.forms['contact-form'] ? document.forms['contact-form'] : null;
     const addPhotoForm = document.forms['addphoto-form'];
     const addPhotoButton = document.getElementById("addPhoto");
-    const modalPhotoGallery = document.getElementById('modal-photogallery');
+    const modalPhotoGallery = document.getElementById("modal-photogallery");
     const modalAddPhoto = document.getElementById('modal-addphoto');
     const closeBtns = document.querySelectorAll('.close');
-
         
     // Open Modal Photo Gallery
-    editProjectIcon.addEventListener('click', (e) => {
-        openModal(modalPhotoGallery);
+    editProjectIcon.addEventListener('click', () => {
+        modalPhotoGallery.showModal();
     });
 
     // ==============================
@@ -170,23 +156,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadPhotoGrid();
 
-
-    // Contact Form
-    if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            windows.alert("Thank you for your message. We'll be in touch soon.")
-        });
-    };
     // Open Modal Add Photo
     if (addPhotoButton) {
         addPhotoButton.addEventListener('click', (e) => {
             e.preventDefault();
-            closeModal(modalPhotoGallery);
-            openModal(modalAddPhoto);
-
+            modalPhotoGallery.close();
+            modalAddPhoto.showModal();
         });
     };
+
+    // Close ANY Modal
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => { 
+            modalPhotoGallery.close();
+            modalAddPhoto.close();
+        });
+    });
 
     addPhotoForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -225,27 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
             figure.appendChild(img);
             figure.appendChild(caption);
             gallery.appendChild(figure);
+
+            modalAddPhoto.close();
             
         } catch (error) {
             console.error('Error in file submission:', error);
         }
     });
-
-
-    // Close Modal
-    closeBtns.forEach(btn => {
-        btn.addEventListener('click', () => { 
-            closeModal(modalPhotoGallery); 
-            closeModal(modalAddPhoto); 
-        });
-    });
-
-    // Close Modal
-    window.addEventListener('click', (event) => {
-        if (event.target === modalPhotoGallery) closeModal(modalPhotoGallery);
-        if (event.target === modalAddPhoto) closeModal(modalAddPhoto);
-    });
-
 
     // Preview de la imagen 
     const uploadInput = document.getElementById("uploadPhoto");
@@ -271,5 +242,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Contact Form
+    if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            windows.alert("Thank you for your message. We'll be in touch soon.")
+        });
+    };
+
 });
 
