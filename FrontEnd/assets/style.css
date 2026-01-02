@@ -180,7 +180,9 @@ a {
 }
 
 .edit-project-icon,
-.delete-icon {
+.delete-icon, 
+#categories > li 
+{
   cursor: pointer;
 }
 
