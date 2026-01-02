@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Open Modal Photo Gallery
     editProjectIcon.addEventListener('click', () => {
         modalPhotoGallery.showModal();
-        // loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true, forceReload: true });
+        loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true, forceReload: true });
     });
 
 
