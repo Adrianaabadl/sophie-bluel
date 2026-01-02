@@ -4,7 +4,7 @@ info:
   description: API Backend for Architect Website
   version: 1.0.0
 servers:
-  - url: http://localhost:5678/api/
+  - url: https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/
 paths:
   /users/login:
     post:
@@ -83,7 +83,7 @@ paths:
                       example: "Abajour Tahina"
                     imageUrl:
                       type: string
-                      example: "http://localhost:5678/images/abajour-tahina1651286843956.png"
+                      example: "http://https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/images/abajour-tahina1651286843956.png"
                     categoryId:
                       type: integer
                       format: int64

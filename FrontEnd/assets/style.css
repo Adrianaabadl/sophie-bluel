@@ -180,7 +180,9 @@ a {
 }
 
 .edit-project-icon,
-.delete-icon {
+.delete-icon, 
+#categories > li 
+{
   cursor: pointer;
 }
 
@@ -292,7 +294,6 @@ footer nav ul {
 }
 
 #modal-photogallery, #modal-addphoto {
-  display: none; 
   position: fixed;
   top: 0;
   left: 0;

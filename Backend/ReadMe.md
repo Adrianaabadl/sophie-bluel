@@ -15,6 +15,8 @@ email: sophie.bluel@test.tld
 password: S0phie 
 ```
 Link to see the
-[Swagger documentation ](http://localhost:5678/api-docs/)
+[Swagger documentation](http://localhost:5678/api-docs/)
+
+[Swagger Seenode documentation](https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api-docs/)
 
 To read the documentation, use Chrome or Firefox
