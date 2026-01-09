@@ -28,18 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD GALLERY FROM API
     // ===========================
 
-    const API_WORKS = "https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works";
+    const API_WORKS = "http://localhost:5678/api/works";
     let works = [];
     const gallery = document.querySelector('.gallery');
     const photoGrid = document.querySelector('.photo-grid');
 
 
-    async function loadWorks({ containerSelector = '.gallery', showDeleteIcons = false } = {}) {
+    async function loadWorks({
+        containerSelector = '.gallery',
+        showDeleteIcons = false,
+        forceReload = false
+    } = {}) {
         const container = document.querySelector(containerSelector);
         if (!container) return;
 
         try {
-            if (!works || works.length === 0) {
+            if (forceReload || !works || works.length === 0) {
                 const res = await fetch(API_WORKS);
                 works = await res.json();
             }
@@ -71,8 +75,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             if (response.ok) {
                                 works = works.filter(w => w.id !== Number(id));
-                                loadWorks({ containerSelector: '.gallery', showDeleteIcons: false });
-                                loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true });
+                                if (response.ok) {
+                                    await loadWorks({
+                                        containerSelector: '.gallery',
+                                        showDeleteIcons: false,
+                                        forceReload: true
+                                    });
+
+                                    await loadWorks({
+                                        containerSelector: '.photo-grid',
+                                        showDeleteIcons: true,
+                                        forceReload: true
+                                    });
+
+                                    modalPhotoGallery.close();
+                                }
                                 modalPhotoGallery.close();
                                 console.log(`Work ID ${id} deleted`);
                             } else {
@@ -100,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadWorks({ containerSelector: '.gallery', showDeleteIcons: false });
-    loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true });
+    // loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true, forceReload: true });
 
 
     // Filter elements
@@ -139,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Open Modal Photo Gallery
     editProjectIcon.addEventListener('click', () => {
         modalPhotoGallery.showModal();
+        loadWorks({ containerSelector: '.photo-grid', showDeleteIcons: true, forceReload: true });
     });
 
 
@@ -179,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const caption = document.createElement('figcaption');
 
         try {
-            const response = await fetch('https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works', {
+            const response = await fetch('http://localhost:5678/api/works', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,

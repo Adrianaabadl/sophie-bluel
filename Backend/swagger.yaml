@@ -83,7 +83,7 @@ paths:
                       example: "Abajour Tahina"
                     imageUrl:
                       type: string
-                      example: "http://https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/images/abajour-tahina1651286843956.png"
+                      example: "https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/images/abajour-tahina1651286843956.png"
                     categoryId:
                       type: integer
                       format: int64
