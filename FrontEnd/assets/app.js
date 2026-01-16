@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD GALLERY FROM API
     // ===========================
 
-    const API_WORKS = "http://localhost:5678/api/works";
+    const API_WORKS = "https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works";
     let works = [];
     const gallery = document.querySelector('.gallery');
     const photoGrid = document.querySelector('.photo-grid');
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const caption = document.createElement('figcaption');
 
         try {
-            const response = await fetch('http://localhost:5678/api/works', {
+            const response = await fetch('https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/works', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
