@@ -8,7 +8,7 @@ async function handleLogin(event) {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/users/login', {
+        const response = await fetch('https://web-6z5du17st95d.up-de-fra1-k8s-1.apps.run-on-seenode.com/api/users/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
