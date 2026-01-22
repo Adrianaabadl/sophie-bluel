@@ -12,6 +12,9 @@ This document serves as a presentation guide for the Sophie Bluel Frontend demon
 #### 🔍 **1. Filter & Display Projects in Gallery**
 
 **What It Does:**
+
+
+
 - Displays all projects from the API in a gallery format
 - Users can filter projects by category using interactive buttons
 - Categories available: **All**, **Objects**, **Apartments**, **Hotel & Restaurants**
@@ -627,6 +630,4 @@ formData.append('title', title);
 - **Use clear terminology:** API, endpoint, token, FormData, etc.
 - **Be ready for deep questions:** Understand every line in app.js and login.js
 
----
 
-**Good luck with your presentation! 🚀**
